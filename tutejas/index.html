@@ -3,11 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
 <title>Tutejas Gorakhpur</title>
 <meta name="description" content="Tutejas — clothing & accessories store in Mohaddipur, Gorakhpur. Men, women & kids apparel, premium brands and perfumes. Open daily 11 am – 10 pm.">
 <!-- Demo build: remove the robots tag once the owner approves and the site moves to its own domain -->
 <meta name="robots" content="noindex, nofollow">
-<meta name="theme-color" content="#b3261e">
+<meta name="theme-color" content="#fffdf9">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Tutejas — Clothing &amp; Accessories, Gorakhpur">
 <meta property="og:description" content="Men, women &amp; kids apparel, top brands and perfumes. Mohaddipur, Gorakhpur · Open daily 11 am – 10 pm.">
@@ -42,39 +43,26 @@
 }
 </script>
 <style>
+  /* Bright, light-only palette taken from the store: red ribbon, warm gold sign, white interiors */
   :root {
-    --bg: #f7f2ea;
-    --surface: #fffaf3;
-    --ink: #1c1917;
-    --muted: #6b625a;
-    --line: #e4dacb;
-    --accent: #b3261e;
-    --accent-ink: #ffffff;
-    --gold: #a77b2c;
-    --radius: 14px;
+    color-scheme: light;
+    --bg: #fffdf9;
+    --surface: #ffffff;
+    --blush: #fdf3ee;
+    --cream: #fbf5ea;
+    --ink: #221b17;
+    --muted: #6f655d;
+    --line: #f0e6da;
+    --accent: #c62a2f;
+    --accent-deep: #a51f24;
+    --accent-soft: #fde8e6;
+    --gold: #b0832c;
+    --gold-soft: #f7ecd6;
+    --radius: 18px;
+    --shadow-sm: 0 2px 10px -4px rgba(120, 72, 30, .12);
+    --shadow: 0 18px 40px -22px rgba(120, 72, 30, .28);
+    --shadow-lg: 0 40px 80px -40px rgba(120, 50, 30, .38);
     --max: 1160px;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --bg: #141110;
-      --surface: #1d1917;
-      --ink: #f3ece2;
-      --muted: #a8998b;
-      --line: #342d28;
-      --accent: #e0574d;
-      --accent-ink: #160b0a;
-      --gold: #d4a654;
-    }
-  }
-  :root[data-theme="dark"] {
-    --bg: #141110;
-    --surface: #1d1917;
-    --ink: #f3ece2;
-    --muted: #a8998b;
-    --line: #342d28;
-    --accent: #e0574d;
-    --accent-ink: #160b0a;
-    --gold: #d4a654;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -82,198 +70,268 @@
   body {
     background: var(--bg);
     color: var(--ink);
-    font: 16px/1.6 "Inter", system-ui, -apple-system, sans-serif;
+    font: 16px/1.65 "Inter", system-ui, -apple-system, sans-serif;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
   }
   a { color: inherit; }
+  img { max-width: 100%; }
   .wrap { max-width: var(--max); margin: 0 auto; padding: 0 16px; }
   @media (min-width: 720px) { .wrap { padding: 0 32px; } }
 
   .serif { font-family: "Fraunces", Georgia, serif; }
   .eyebrow {
-    font-size: 12px; letter-spacing: .18em; text-transform: uppercase;
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 12px; letter-spacing: .2em; text-transform: uppercase;
     color: var(--gold); font-weight: 600;
   }
+  .eyebrow::before { content: ""; width: 22px; height: 1.5px; background: currentColor; }
 
   /* Nav */
   header.nav {
     position: sticky; top: 0; z-index: 10;
-    background: color-mix(in srgb, var(--bg) 88%, transparent);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--line);
+    background: rgba(255, 253, 249, .86);
+    backdrop-filter: saturate(1.4) blur(12px);
+    -webkit-backdrop-filter: saturate(1.4) blur(12px);
+    border-bottom: 1px solid transparent;
+    transition: border-color .3s, box-shadow .3s;
   }
-  .nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 16px; }
+  header.nav.scrolled { border-color: var(--line); box-shadow: var(--shadow-sm); }
+  .nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 68px; gap: 16px; }
   .logo { display: block; text-decoration: none; }
   .logo-mark { display: block; height: 32px; width: auto; }
   @media (min-width: 720px) { .logo-mark { height: 38px; } }
-  .nav ul { display: none; list-style: none; gap: 28px; font-size: 14px; }
-  .nav ul a { text-decoration: none; color: var(--muted); }
+  .nav ul { display: none; list-style: none; gap: 30px; font-size: 14px; font-weight: 500; }
+  .nav ul a { text-decoration: none; color: var(--muted); position: relative; padding: 4px 0; }
+  .nav ul a::after { content: ""; position: absolute; left: 0; right: 0; bottom: -2px; height: 1.5px; background: var(--accent); transform: scaleX(0); transition: transform .25s; }
   .nav ul a:hover { color: var(--ink); }
+  .nav ul a:hover::after { transform: scaleX(1); }
   @media (min-width: 820px) { .nav ul { display: flex; } }
 
   .btn {
     display: inline-flex; align-items: center; gap: 8px;
-    padding: 12px 20px; border-radius: 999px;
+    padding: 13px 22px; border-radius: 999px;
     font-weight: 600; font-size: 14px; text-decoration: none;
-    border: 1px solid var(--ink); transition: transform .15s, background .15s;
+    border: 1px solid var(--line); transition: transform .2s, box-shadow .2s, background .2s;
   }
-  .btn:hover { transform: translateY(-1px); }
-  .btn-primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
-  .btn-ghost { background: transparent; }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-primary { background: var(--accent); color: #fff; border-color: var(--accent); box-shadow: 0 10px 22px -10px rgba(198, 42, 47, .7); }
+  .btn-primary:hover { background: var(--accent-deep); box-shadow: 0 14px 28px -12px rgba(198, 42, 47, .8); }
+  .btn-ghost { background: var(--surface); box-shadow: var(--shadow-sm); }
+  .btn-ghost:hover { box-shadow: var(--shadow); }
+  .btn-wa svg { color: #1faa53; }
   .btn svg { width: 16px; height: 16px; }
-  .nav .btn { padding: 9px 16px; }
+  .nav .btn { padding: 10px 18px; }
 
   /* Hero */
-  .hero { padding: 64px 0 56px; position: relative; }
-  .hero-grid { display: grid; gap: 40px; align-items: center; }
-  @media (min-width: 900px) { .hero-grid { grid-template-columns: 1.15fr .85fr; gap: 64px; } .hero { padding: 96px 0 88px; } }
+  .hero { position: relative; padding: 56px 0 72px; overflow: hidden; }
+  .hero::before, .hero::after {
+    content: ""; position: absolute; border-radius: 50%; filter: blur(10px); z-index: -1;
+  }
+  .hero::before { width: 620px; height: 620px; right: -160px; top: -140px; background: radial-gradient(circle, #fde3dc 0%, rgba(253,227,220,0) 70%); }
+  .hero::after { width: 520px; height: 520px; left: -200px; bottom: -220px; background: radial-gradient(circle, #f8ebcf 0%, rgba(248,235,207,0) 70%); }
+  .hero-grid { display: grid; gap: 48px; align-items: center; }
+  @media (min-width: 900px) { .hero-grid { grid-template-columns: 1.1fr .9fr; gap: 72px; } .hero { padding: 88px 0 104px; } }
   .hero h1 {
     font-family: "Fraunces", serif; font-weight: 400;
-    font-size: clamp(42px, 8vw, 84px); line-height: 1.02; letter-spacing: -.02em;
-    margin: 18px 0 22px;
+    font-size: clamp(44px, 8vw, 86px); line-height: 1.02; letter-spacing: -.025em;
+    margin: 20px 0 22px;
   }
   .hero h1 em { color: var(--accent); font-style: italic; }
   .hero p.lead { font-size: 18px; color: var(--muted); max-width: 520px; }
   .hero .ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
-  .rating { display: flex; align-items: center; gap: 10px; margin-top: 28px; font-size: 14px; color: var(--muted); }
-  .stars { color: var(--gold); letter-spacing: 2px; font-size: 16px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 999px;
+    background: var(--surface); border: 1px solid var(--line); font-size: 13px; color: var(--muted); box-shadow: var(--shadow-sm);
+  }
+  .chip b { color: var(--ink); font-weight: 600; }
+  .stars { color: #e3a52b; letter-spacing: 1px; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: #1f9d55; box-shadow: 0 0 0 4px rgba(31,157,85,.15); }
+  .dot.closed { background: var(--accent); box-shadow: 0 0 0 4px rgba(198,42,47,.15); }
 
-  /* Hero photo */
+  .hero-visual { position: relative; justify-self: center; width: 100%; max-width: 520px; }
+  .hero-visual::before {
+    content: ""; position: absolute; inset: 22px -18px -18px 22px; border-radius: 28px;
+    border: 1.5px solid #e6cf9f; z-index: 0;
+  }
   .hero-photo {
-    position: relative; border-radius: 22px; overflow: hidden; margin: 0;
-    box-shadow: 0 30px 60px -30px rgba(0,0,0,.45);
-    max-width: 520px; width: 100%; justify-self: center; aspect-ratio: 1 / 1;
-    background: var(--surface);
+    position: relative; z-index: 1; margin: 0; border-radius: 26px; overflow: hidden;
+    aspect-ratio: 1 / 1; background: var(--cream);
+    border: 8px solid #fff; box-shadow: var(--shadow-lg);
   }
   .hero-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .hero-photo .badge {
-    background: #fff; color: #1c1917; letter-spacing: 0; white-space: nowrap;
-    font-size: 12px; font-weight: 600; padding: 8px 12px; border-radius: 999px;
+  .float-card {
+    position: absolute; z-index: 2; left: -14px; bottom: 28px;
+    background: #fff; border-radius: 16px; padding: 14px 18px; box-shadow: var(--shadow);
+    display: flex; align-items: center; gap: 12px;
   }
-  .hero-photo figcaption {
-    position: absolute; left: 0; right: 0; bottom: 0; padding: 48px 16px 16px 20px;
-    background: linear-gradient(to top, rgba(0,0,0,.7), transparent);
-    color: #fff; font-size: 13px; letter-spacing: .08em;
-    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px;
-  }
-
-  /* Gallery */
-  .gallery { display: grid; gap: 12px; grid-template-columns: repeat(2, 1fr); grid-auto-rows: 180px; grid-auto-flow: dense; }
-  @media (min-width: 900px) { .gallery { grid-template-columns: repeat(4, 1fr); grid-auto-rows: 240px; gap: 16px; } }
-  .gallery figure { position: relative; margin: 0; border-radius: var(--radius); overflow: hidden; background: var(--surface); }
-  .gallery figure.tall { grid-row: span 2; }
-  .gallery figure.wide { grid-column: span 2; }
-  .gallery img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s ease; }
-  .gallery figure:hover img { transform: scale(1.04); }
-  .gallery figcaption {
-    position: absolute; left: 10px; bottom: 10px; background: rgba(255,255,255,.92); color: #1c1917;
-    font-size: 12px; font-weight: 600; padding: 6px 10px; border-radius: 999px;
-  }
-
-  /* Night band */
-  .night { background: #0d0b0a; color: #fff; padding: 0; }
-  .night .grid { display: grid; }
-  @media (min-width: 900px) { .night .grid { grid-template-columns: 1fr 1fr; min-height: 520px; } }
-  .night img { width: 100%; height: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: center 42%; display: block; }
-  @media (min-width: 900px) { .night img { aspect-ratio: auto; position: absolute; inset: 0; } .night .pic { position: relative; order: 2; } }
-  .night .txt { padding: 48px 16px 56px; display: flex; flex-direction: column; justify-content: center; }
-  @media (min-width: 900px) { .night .txt { padding: 64px max(32px, calc((100vw - var(--max)) / 2 + 32px)); padding-right: 48px; } }
-  .night h2 { font-family: "Fraunces", serif; font-weight: 400; font-size: clamp(34px, 5vw, 56px); line-height: 1.05; margin-top: 12px; }
-  .night h2 em { color: #ffb4ab; white-space: nowrap; }
-  .night p { margin-top: 16px; color: rgba(255,255,255,.75); max-width: 440px; }
-  .night .eyebrow { color: #e7c27d; }
+  .float-card .big { font-family: "Fraunces", serif; font-size: 30px; line-height: 1; }
+  .float-card small { display: block; font-size: 12px; color: var(--muted); }
+  @media (max-width: 520px) { .float-card { left: 8px; bottom: 16px; } }
 
   /* Marquee strip */
-  .strip { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); overflow: hidden; background: var(--surface); }
-  .strip .track { display: flex; gap: 48px; padding: 18px 0; white-space: nowrap; animation: scroll 32s linear infinite; width: max-content; }
-  .strip span { font-family: "Fraunces", serif; font-size: 22px; font-style: italic; color: var(--muted); }
-  .strip span::after { content: "✦"; font-style: normal; color: var(--accent); margin-left: 48px; font-size: 14px; vertical-align: middle; }
+  .strip { overflow: hidden; background: var(--accent); color: #fff; }
+  .strip .track { display: flex; gap: 44px; padding: 16px 0; white-space: nowrap; animation: scroll 36s linear infinite; width: max-content; }
+  .strip span { font-family: "Fraunces", serif; font-size: 21px; font-style: italic; }
+  .strip span::after { content: "✦"; font-style: normal; color: #ffd98a; margin-left: 44px; font-size: 13px; vertical-align: middle; }
   @keyframes scroll { to { transform: translateX(-50%); } }
-  @media (prefers-reduced-motion: reduce) { .strip .track { animation: none; } }
 
-  section { padding: 80px 0; }
-  .sec-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 16px; margin-bottom: 40px; }
-  .sec-head h2 { font-family: "Fraunces", serif; font-weight: 400; font-size: clamp(32px, 5vw, 48px); line-height: 1.1; letter-spacing: -.01em; margin-top: 10px; }
+  section { padding: 88px 0; }
+  .sec-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 16px 32px; margin-bottom: 44px; }
+  .sec-head h2 { font-family: "Fraunces", serif; font-weight: 400; font-size: clamp(32px, 5vw, 50px); line-height: 1.08; letter-spacing: -.015em; margin-top: 12px; }
+  .sec-head h2 em { color: var(--accent); }
   .sec-head p { color: var(--muted); max-width: 420px; }
 
   /* Collections */
-  .cards { display: grid; gap: 16px; grid-template-columns: 1fr; }
+  .cards { display: grid; gap: 18px; grid-template-columns: 1fr; }
   @media (min-width: 640px) { .cards { grid-template-columns: repeat(2, 1fr); } }
   @media (min-width: 1000px) { .cards { grid-template-columns: repeat(4, 1fr); } }
   .card {
+    position: relative; overflow: hidden;
     background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
-    padding: 28px 24px; display: flex; flex-direction: column; gap: 14px; min-height: 260px;
-    transition: border-color .2s, transform .2s;
+    padding: 30px 26px; display: flex; flex-direction: column; gap: 14px; min-height: 270px;
+    box-shadow: var(--shadow-sm); transition: transform .3s, box-shadow .3s, border-color .3s;
   }
-  .card:hover { border-color: var(--accent); transform: translateY(-3px); }
+  .card::after {
+    content: ""; position: absolute; right: -40px; top: -40px; width: 130px; height: 130px; border-radius: 50%;
+    background: var(--tint); opacity: .6; transition: transform .4s;
+  }
+  .card:hover { transform: translateY(-6px); box-shadow: var(--shadow); border-color: transparent; }
+  .card:hover::after { transform: scale(1.25); }
   .card .ic {
-    width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center;
-    background: color-mix(in srgb, var(--accent) 12%, transparent); color: var(--accent);
+    position: relative; z-index: 1;
+    width: 56px; height: 56px; border-radius: 16px; display: grid; place-items: center;
+    background: var(--tint); color: var(--tone);
   }
-  .card .ic svg { width: 26px; height: 26px; }
-  .card h3 { font-family: "Fraunces", serif; font-weight: 600; font-size: 24px; }
-  .card p { color: var(--muted); font-size: 15px; }
-  .card .num { margin-top: auto; font-size: 12px; letter-spacing: .14em; color: var(--muted); text-transform: uppercase; }
+  .card .ic svg { width: 27px; height: 27px; }
+  .card h3 { font-family: "Fraunces", serif; font-weight: 600; font-size: 24px; position: relative; }
+  .card p { color: var(--muted); font-size: 15px; position: relative; }
+  .card .num { margin-top: auto; font-size: 12px; letter-spacing: .16em; color: var(--tone); text-transform: uppercase; font-weight: 600; }
+  .t-red   { --tint: #fde8e6; --tone: #c62a2f; }
+  .t-rose  { --tint: #fce7ef; --tone: #b83266; }
+  .t-sky   { --tint: #e6f1fb; --tone: #2d6aa3; }
+  .t-gold  { --tint: #f8eed8; --tone: #9a7123; }
+
+  /* Gallery */
+  .gallery { display: grid; gap: 12px; grid-template-columns: repeat(2, 1fr); grid-auto-rows: 180px; grid-auto-flow: dense; }
+  @media (min-width: 900px) { .gallery { grid-template-columns: repeat(4, 1fr); grid-auto-rows: 240px; gap: 18px; } }
+  .gallery figure { position: relative; margin: 0; border-radius: var(--radius); overflow: hidden; background: var(--cream); box-shadow: var(--shadow-sm); }
+  .gallery figure.tall { grid-row: span 2; }
+  .gallery figure.wide { grid-column: span 2; }
+  .gallery img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .8s cubic-bezier(.2,.7,.2,1); filter: saturate(1.05) brightness(1.04); }
+  .gallery figure:hover img { transform: scale(1.06); }
+  .gallery figcaption {
+    position: absolute; left: 12px; bottom: 12px; background: rgba(255,255,255,.94); color: var(--ink);
+    font-size: 12px; font-weight: 600; padding: 7px 12px; border-radius: 999px; box-shadow: var(--shadow-sm);
+  }
 
   /* Brands */
-  .brands { background: var(--ink); color: var(--bg); }
-  .brands .sec-head p { color: color-mix(in srgb, var(--bg) 70%, transparent); }
-  .brand-grid { display: grid; grid-template-columns: repeat(2, 1fr); border-top: 1px solid color-mix(in srgb, var(--bg) 18%, transparent); }
-  @media (min-width: 720px) { .brand-grid { grid-template-columns: repeat(4, 1fr); } }
+  .brands { background: var(--cream); position: relative; }
+  .brand-grid { display: grid; gap: 12px; grid-template-columns: repeat(2, 1fr); }
+  @media (min-width: 720px) { .brand-grid { grid-template-columns: repeat(4, 1fr); gap: 16px; } }
   .brand-grid div {
-    padding: 28px 12px; text-align: center; font-family: "Fraunces", serif; font-size: 22px;
-    border-bottom: 1px solid color-mix(in srgb, var(--bg) 18%, transparent);
+    background: var(--surface); border: 1px solid #efe1c5; border-radius: 14px;
+    padding: 26px 12px; text-align: center; font-family: "Fraunces", serif; font-size: 21px;
+    box-shadow: var(--shadow-sm); transition: transform .25s, color .25s, box-shadow .25s;
   }
-  .brands .note { margin-top: 20px; font-size: 13px; color: color-mix(in srgb, var(--bg) 60%, transparent); }
+  .brand-grid div:hover { transform: translateY(-3px); color: var(--accent); box-shadow: var(--shadow); }
+  .brands .note { margin-top: 22px; font-size: 13px; color: var(--muted); }
 
   /* Why */
-  .why { display: grid; gap: 32px; }
+  .why { display: grid; gap: 18px; }
   @media (min-width: 900px) { .why { grid-template-columns: repeat(3, 1fr); } }
-  .why div { border-top: 2px solid var(--ink); padding-top: 20px; }
+  .why > div { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 30px 26px; box-shadow: var(--shadow-sm); }
+  .why .n {
+    display: inline-grid; place-items: center; width: 40px; height: 40px; border-radius: 50%;
+    background: var(--gold-soft); color: var(--gold); font-family: "Fraunces", serif; font-weight: 600; margin-bottom: 16px;
+  }
   .why h3 { font-family: "Fraunces", serif; font-size: 22px; font-weight: 600; margin-bottom: 8px; }
   .why p { color: var(--muted); }
 
   /* Reviews */
-  .reviews-wrap { background: var(--surface); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-  .score { display: flex; align-items: baseline; gap: 12px; }
-  .score b { font-family: "Fraunces", serif; font-size: 64px; font-weight: 400; line-height: 1; }
-  .quotes { display: grid; gap: 16px; }
+  .reviews-wrap { background: var(--blush); }
+  .score { display: flex; align-items: center; gap: 16px; margin-top: 12px; }
+  .score b { font-family: "Fraunces", serif; font-size: 68px; font-weight: 400; line-height: 1; color: var(--accent); }
+  .score .stars { font-size: 18px; }
+  .quotes { display: grid; gap: 18px; }
   @media (min-width: 900px) { .quotes { grid-template-columns: repeat(3, 1fr); } }
   blockquote {
-    background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px;
-    display: flex; flex-direction: column; gap: 18px;
+    position: relative; background: var(--surface); border-radius: var(--radius); padding: 34px 28px 26px;
+    display: flex; flex-direction: column; gap: 18px; box-shadow: var(--shadow);
   }
-  blockquote p { font-family: "Fraunces", serif; font-size: 21px; line-height: 1.35; }
-  blockquote footer { font-size: 13px; color: var(--muted); margin-top: auto; }
+  blockquote::before {
+    content: "“"; position: absolute; top: -6px; left: 22px; font-family: "Fraunces", serif;
+    font-size: 84px; line-height: 1; color: #f0c9c6;
+  }
+  blockquote .stars { font-size: 14px; position: relative; }
+  blockquote p { font-family: "Fraunces", serif; font-size: 21px; line-height: 1.35; position: relative; }
+  blockquote footer { font-size: 13px; color: var(--muted); margin-top: auto; display: flex; align-items: center; gap: 10px; }
+  blockquote footer i {
+    width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; font-style: normal;
+    background: var(--accent-soft); color: var(--accent); font-weight: 600; font-size: 13px;
+  }
+
+  /* Open late */
+  .late .panel {
+    display: grid; overflow: hidden; border-radius: 28px; background: linear-gradient(135deg, #fff7e6 0%, #fdeee9 100%);
+    border: 1px solid #f3e2c4; box-shadow: var(--shadow);
+  }
+  @media (min-width: 900px) { .late .panel { grid-template-columns: 1.05fr .95fr; min-height: 460px; } }
+  .late .pic { position: relative; min-height: 280px; }
+  .late .pic img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 42%; display: block; }
+  @media (min-width: 900px) { .late .pic { order: 2; } }
+  .late .txt { padding: 40px 24px 44px; display: flex; flex-direction: column; justify-content: center; }
+  @media (min-width: 900px) { .late .txt { padding: 56px; } }
+  .late h2 { font-family: "Fraunces", serif; font-weight: 400; font-size: clamp(34px, 5vw, 54px); line-height: 1.06; margin-top: 14px; }
+  .late h2 em { color: var(--accent); white-space: nowrap; }
+  .late p { margin-top: 16px; color: var(--muted); max-width: 440px; }
+  .hours { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+  .hours span { background: #fff; border-radius: 10px; padding: 8px 12px; font-size: 13px; font-weight: 600; box-shadow: var(--shadow-sm); }
+  .hours span small { display: block; font-weight: 500; color: var(--muted); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
 
   /* Visit */
   .visit { display: grid; gap: 24px; }
-  @media (min-width: 900px) { .visit { grid-template-columns: .9fr 1.1fr; gap: 40px; } }
-  .info { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; display: flex; flex-direction: column; gap: 22px; }
-  .info .row { display: grid; grid-template-columns: 28px 1fr; gap: 14px; }
-  .info .row svg { width: 22px; height: 22px; color: var(--accent); margin-top: 2px; }
-  .info h4 { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); font-weight: 600; margin-bottom: 4px; }
+  @media (min-width: 900px) { .visit { grid-template-columns: .9fr 1.1fr; gap: 32px; } }
+  .info { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 30px; display: flex; flex-direction: column; gap: 22px; box-shadow: var(--shadow); }
+  .info .row { display: grid; grid-template-columns: 44px 1fr; gap: 14px; align-items: start; }
+  .info .row .ico { width: 44px; height: 44px; border-radius: 12px; background: var(--accent-soft); color: var(--accent); display: grid; place-items: center; }
+  .info .row svg { width: 20px; height: 20px; }
+  .info h4 { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); font-weight: 600; margin-bottom: 3px; }
   .info a { text-decoration: none; }
   .info a:hover { color: var(--accent); }
   .status { display: inline-block; margin-top: 6px; font-size: 13px; font-weight: 600; padding: 3px 10px; border-radius: 999px; }
-  .status.open { background: color-mix(in srgb, #1f9d55 15%, transparent); color: #1f9d55; }
-  .status.closed { background: color-mix(in srgb, var(--accent) 14%, transparent); color: var(--accent); }
-  .map { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); min-height: 360px; background: var(--surface); }
+  .status.open { background: #e3f5ea; color: #1b7f46; }
+  .status.closed { background: var(--accent-soft); color: var(--accent); }
+  .map { border-radius: var(--radius); overflow: hidden; border: 6px solid #fff; min-height: 360px; background: var(--cream); box-shadow: var(--shadow); }
   .map iframe { width: 100%; height: 100%; min-height: 360px; border: 0; display: block; }
 
-  footer.site { padding: 40px 0 100px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
-  footer.site .wrap { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; }
-  @media (min-width: 720px) { footer.site { padding-bottom: 40px; } }
+  footer.site { background: var(--cream); padding: 48px 0 110px; color: var(--muted); font-size: 14px; border-top: 1px solid #f1e4cc; }
+  footer.site .wrap { display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-between; align-items: center; }
+  footer.site img { height: 30px; width: auto; display: block; margin-bottom: 8px; }
+  @media (min-width: 720px) { footer.site { padding-bottom: 48px; } }
 
-  /* Floating WhatsApp (mobile-first) */
+  /* Floating WhatsApp */
   .fab {
     position: fixed; right: 16px; bottom: 16px; z-index: 20;
-    width: 56px; height: 56px; border-radius: 50%; background: #25d366; color: #fff;
-    display: grid; place-items: center; box-shadow: 0 10px 24px -8px rgba(0,0,0,.4);
+    width: 58px; height: 58px; border-radius: 50%; background: #25d366; color: #fff;
+    display: grid; place-items: center; box-shadow: 0 14px 28px -10px rgba(37,211,102,.7);
+    animation: pulse 2.6s ease-out infinite;
   }
-  .fab svg { width: 28px; height: 28px; }
+  .fab svg { width: 29px; height: 29px; }
+  @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(37,211,102,.45), 0 14px 28px -10px rgba(37,211,102,.7); } 70%, 100% { box-shadow: 0 0 0 16px rgba(37,211,102,0), 0 14px 28px -10px rgba(37,211,102,.7); } }
+
+  /* Reveal on scroll (only when JS runs, so content is never hidden without it) */
+  .js .reveal { opacity: 0; transform: translateY(22px); transition: opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1); }
+  .js .reveal.in { opacity: 1; transform: none; }
+  .js .reveal.d1 { transition-delay: .08s; } .js .reveal.d2 { transition-delay: .16s; } .js .reveal.d3 { transition-delay: .24s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .strip .track, .fab { animation: none; }
+    .js .reveal { opacity: 1; transform: none; transition: none; }
+  }
 </style>
+<script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
 
@@ -299,27 +357,33 @@
   <section class="hero">
     <div class="wrap hero-grid">
       <div>
-        <div class="eyebrow">Mohaddipur · Gorakhpur</div>
-        <h1>Dress well.<br><em>Every</em> day.</h1>
-        <p class="lead">Tutejas is Gorakhpur's destination for branded clothing and accessories — men, women and kids under one roof, plus a hand-picked shelf of fragrances.</p>
-        <div class="ctas">
+        <div class="eyebrow reveal">Mohaddipur · Gorakhpur</div>
+        <h1 class="reveal d1">Dress well.<br><em>Every</em> day.</h1>
+        <p class="lead reveal d2">Tutejas is Gorakhpur's destination for branded clothing and accessories — men, women and kids under one roof, plus a hand-picked shelf of fragrances.</p>
+        <div class="ctas reveal d3">
           <a class="btn btn-primary" href="https://www.google.com/maps/dir/?api=1&destination=26.7490963,83.4029428" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>
             Get directions
           </a>
-          <a class="btn btn-ghost" href="https://wa.me/919999952387?text=Hi%20Tutejas%2C%20I%27d%20like%20to%20know%20more%20about%20your%20collection." target="_blank" rel="noopener">
+          <a class="btn btn-ghost btn-wa" href="https://wa.me/919999952387?text=Hi%20Tutejas%2C%20I%27d%20like%20to%20know%20more%20about%20your%20collection." target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.5 12.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5 2.5 1 3 .8 3.6.7.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3z"/></svg>
             WhatsApp us
           </a>
         </div>
-        <div class="rating">
-          <span class="stars" aria-hidden="true">★★★★★</span>
-          <span><strong style="color:var(--ink)">4.5</strong> from 52 Google reviews</span>
+        <div class="chips reveal d3">
+          <span class="chip"><span class="stars" aria-hidden="true">★★★★★</span><b>4.5</b> · 52 Google reviews</span>
+          <span class="chip"><span id="dot" class="dot" aria-hidden="true"></span><span id="chipStatus">Open daily · 11 am – 10 pm</span></span>
         </div>
       </div>
-      <figure class="hero-photo">
-        <img src="https://cdn.jsdelivr.net/gh/pro-business-hub/website@29408cd57855fb26ca4350cac4a2786b8d8231dc/tutejas/images/storefront.jpg" alt="Tutejas storefront in Mohaddipur, Gorakhpur, with illuminated signage and mannequins in the window" width="1400" height="1333" fetchpriority="high">
-        <figcaption><span>Our store · Mohaddipur, Gorakhpur</span><span class="badge">Open daily · 11–10</span></figcaption>
-      </figure>
+      <div class="hero-visual reveal d2">
+        <figure class="hero-photo">
+          <img src="https://cdn.jsdelivr.net/gh/pro-business-hub/website@29408cd57855fb26ca4350cac4a2786b8d8231dc/tutejas/images/storefront.jpg" alt="Tutejas storefront in Mohaddipur, Gorakhpur, with illuminated signage and mannequins in the window" width="1400" height="1333" fetchpriority="high">
+        </figure>
+        <div class="float-card">
+          <div class="big">4.5<span class="stars" style="font-size:16px"> ★</span></div>
+          <div><b style="font-size:14px">Loved locally</b><small>52 reviews on Google</small></div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -333,33 +397,33 @@
   <!-- Collections -->
   <section id="collections">
     <div class="wrap">
-      <div class="sec-head">
+      <div class="sec-head reveal">
         <div>
           <div class="eyebrow">What we carry</div>
-          <h2 class="serif">Something for the<br>whole family</h2>
+          <h2>Something for the<br><em>whole</em> family</h2>
         </div>
         <p>From everyday basics to occasion wear — browse a wide range of styles and sizes across four departments.</p>
       </div>
       <div class="cards">
-        <article class="card">
+        <article class="card t-sky reveal">
           <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 3l-5 4 2 4 2-1v11h10V10l2 1 2-4-5-4c0 1.7-1.8 3-4 3S8 4.7 8 3z"/></svg></div>
           <h3>Men</h3>
           <p>Shirts, tees, polos, denim, jackets and winterwear from the labels you know.</p>
           <div class="num">01 — Menswear</div>
         </article>
-        <article class="card">
+        <article class="card t-rose reveal d1">
           <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 3h6l-1 4 4 14H6l4-14-1-4z"/></svg></div>
           <h3>Women</h3>
           <p>Kurta sets, western tops, dresses and co-ords — ethnic and contemporary.</p>
           <div class="num">02 — Womenswear</div>
         </article>
-        <article class="card">
+        <article class="card t-gold reveal d2">
           <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="6" r="3"/><path d="M7 21v-6l-2-2 3-4h8l3 4-2 2v6"/></svg></div>
           <h3>Kids</h3>
           <p>Comfortable, durable, fun outfits for little ones and growing teens.</p>
           <div class="num">03 — Kidswear</div>
         </article>
-        <article class="card">
+        <article class="card t-red reveal d3">
           <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10 2h4v3h-4zM8 5h8l1 3v12a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2V8l1-3z"/></svg></div>
           <h3>Perfumes, Beauty &amp; More</h3>
           <p>Designer fragrances, cosmetics, skincare, footwear, belts and the finishing touches.</p>
@@ -372,19 +436,19 @@
   <!-- Gallery -->
   <section id="store" style="padding-top:0">
     <div class="wrap">
-      <div class="sec-head">
+      <div class="sec-head reveal">
         <div>
           <div class="eyebrow">Inside the store</div>
-          <h2 class="serif">Take a look around</h2>
+          <h2>Take a <em>look</em> around</h2>
         </div>
         <p>Bright, spacious and well laid out. Here's what you'll find when you walk in.</p>
       </div>
       <div class="gallery">
-        <figure class="tall"><img src="https://cdn.jsdelivr.net/gh/pro-business-hub/website@29408cd57855fb26ca4350cac4a2786b8d8231dc/tutejas/images/ethnic-wear.jpg" alt="Women's ethnic wear section with kurta sets on shelves and racks" loading="lazy"><figcaption>Ethnic wear</figcaption></figure>
-        <figure class="wide"><img src="https://cdn.jsdelivr.net/gh/pro-business-hub/website@29408cd57855fb26ca4350cac4a2786b8d8231dc/tutejas/images/store-floor.jpg" alt="Main shop floor with racks of colourful apparel under warm lighting" loading="lazy" style="object-position:center 40%"><figcaption>The shop floor</figcaption></figure>
-        <figure class="tall"><img src="https://cdn.jsdelivr.net/gh/pro-business-hub/website@29408cd57855fb26ca4350cac4a2786b8d8231dc/tutejas/images/womenswear.jpg" alt="Womenswear display with mannequins and western tops on rails" loading="lazy"><figcaption>Womenswear</figcaption></figure>
-        <figure><img src="https://cdn.jsdelivr.net/gh/pro-business-hub/website@29408cd57855fb26ca4350cac4a2786b8d8231dc/tutejas/images/beauty-footwear.jpg" alt="Perfume, footwear, cosmetics and skincare counters" loading="lazy"><figcaption>Perfume &amp; beauty</figcaption></figure>
-        <figure><img src="https://cdn.jsdelivr.net/gh/pro-business-hub/website@29408cd57855fb26ca4350cac4a2786b8d8231dc/tutejas/images/accessories.jpg" alt="Accessories stand with belts and wallets" loading="lazy"><figcaption>Accessories</figcaption></figure>
+        <figure class="tall reveal"><img src="https://cdn.jsdelivr.net/gh/pro-business-hub/website@29408cd57855fb26ca4350cac4a2786b8d8231dc/tutejas/images/ethnic-wear.jpg" alt="Women's ethnic wear section with kurta sets on shelves and racks" loading="lazy"><figcaption>Ethnic wear</figcaption></figure>
+        <figure class="wide reveal d1"><img src="https://cdn.jsdelivr.net/gh/pro-business-hub/website@29408cd57855fb26ca4350cac4a2786b8d8231dc/tutejas/images/store-floor.jpg" alt="Main shop floor with racks of colourful apparel under warm lighting" loading="lazy" style="object-position:center 40%"><figcaption>The shop floor</figcaption></figure>
+        <figure class="tall reveal d2"><img src="https://cdn.jsdelivr.net/gh/pro-business-hub/website@29408cd57855fb26ca4350cac4a2786b8d8231dc/tutejas/images/womenswear.jpg" alt="Womenswear display with mannequins and western tops on rails" loading="lazy"><figcaption>Womenswear</figcaption></figure>
+        <figure class="reveal d1"><img src="https://cdn.jsdelivr.net/gh/pro-business-hub/website@29408cd57855fb26ca4350cac4a2786b8d8231dc/tutejas/images/beauty-footwear.jpg" alt="Perfume, footwear, cosmetics and skincare counters" loading="lazy"><figcaption>Perfume &amp; beauty</figcaption></figure>
+        <figure class="reveal d2"><img src="https://cdn.jsdelivr.net/gh/pro-business-hub/website@29408cd57855fb26ca4350cac4a2786b8d8231dc/tutejas/images/accessories.jpg" alt="Accessories stand with belts and wallets" loading="lazy"><figcaption>Accessories</figcaption></figure>
       </div>
     </div>
   </section>
@@ -392,14 +456,14 @@
   <!-- Brands -->
   <section id="brands" class="brands">
     <div class="wrap">
-      <div class="sec-head">
+      <div class="sec-head reveal">
         <div>
           <div class="eyebrow">Labels on the floor</div>
-          <h2 class="serif">Big brands,<br>right here in Gorakhpur</h2>
+          <h2>Big brands,<br>right here in <em>Gorakhpur</em></h2>
         </div>
         <p>No need to travel to a metro mall. Here are some of the labels you'll find in store.</p>
       </div>
-      <div class="brand-grid">
+      <div class="brand-grid reveal">
         <div>Tommy Hilfiger</div>
         <div>U.S. Polo Assn.</div>
         <div>Rare Rabbit</div>
@@ -416,22 +480,25 @@
   <!-- Why -->
   <section>
     <div class="wrap">
-      <div class="sec-head">
+      <div class="sec-head reveal">
         <div>
           <div class="eyebrow">Why Tutejas</div>
-          <h2 class="serif">Shopping, the way<br>it should feel</h2>
+          <h2>Shopping, the way<br>it <em>should</em> feel</h2>
         </div>
       </div>
       <div class="why">
-        <div>
+        <div class="reveal">
+          <span class="n">1</span>
           <h3>Wide range, one stop</h3>
           <p>Men, women, kids and fragrances under one roof — pick up the whole family's wardrobe in a single visit.</p>
         </div>
-        <div>
+        <div class="reveal d1">
+          <span class="n">2</span>
           <h3>Genuine, quality product</h3>
           <p>Authentic branded merchandise that's well kept and well displayed, so you know exactly what you're buying.</p>
         </div>
-        <div>
+        <div class="reveal d2">
+          <span class="n">3</span>
           <h3>Friendly, helpful staff</h3>
           <p>A team known for courteous service — and an owner who's on the floor to help you find the right fit.</p>
         </div>
@@ -442,66 +509,75 @@
   <!-- Reviews -->
   <section id="reviews" class="reviews-wrap">
     <div class="wrap">
-      <div class="sec-head">
+      <div class="sec-head reveal">
         <div>
           <div class="eyebrow">What customers say</div>
-          <div class="score" style="margin-top:10px">
+          <div class="score">
             <b>4.5</b>
             <div><span class="stars">★★★★★</span><br><span style="color:var(--muted);font-size:14px">52 reviews on Google</span></div>
           </div>
         </div>
-        <a class="btn btn-ghost" href="https://maps.google.com/?cid=17538587788191675162" target="_blank" rel="noopener">Read all reviews</a>
+        <a class="btn btn-ghost" href="https://maps.google.com/?cid=17538587788191675162" target="_blank" rel="noopener">Read all reviews →</a>
       </div>
       <div class="quotes">
-        <blockquote>
-          <p>“Amazing staff &amp; collection.”</p>
-          <footer>Google review highlight</footer>
+        <blockquote class="reveal">
+          <span class="stars" aria-label="5 stars">★★★★★</span>
+          <p>Amazing staff &amp; collection.</p>
+          <footer><i>G</i>Google review highlight</footer>
         </blockquote>
-        <blockquote>
-          <p>“Absolutely satisfied. Good staff behaviour. All brands available here.”</p>
-          <footer>Manish G. · Google review</footer>
+        <blockquote class="reveal d1">
+          <span class="stars" aria-label="5 stars">★★★★★</span>
+          <p>Absolutely satisfied. Good staff behaviour. All brands available here.</p>
+          <footer><i>M</i>Manish G. · Google review</footer>
         </blockquote>
-        <blockquote>
-          <p>“Good and quality stuff.”</p>
-          <footer>Google review highlight</footer>
+        <blockquote class="reveal d2">
+          <span class="stars" aria-label="5 stars">★★★★★</span>
+          <p>Good and quality stuff.</p>
+          <footer><i>G</i>Google review highlight</footer>
         </blockquote>
       </div>
     </div>
   </section>
 
-  <!-- Night band -->
-  <section class="night" aria-label="Late opening hours">
-    <div class="grid">
-      <div class="pic"><img src="https://cdn.jsdelivr.net/gh/pro-business-hub/website@29408cd57855fb26ca4350cac4a2786b8d8231dc/tutejas/images/facade-night.jpg" alt="Tutejas storefront lit up at night" loading="lazy"></div>
-      <div class="txt">
-        <div class="eyebrow">Open late, every day</div>
-        <h2>Shop after work.<br>We're open till <em>10 pm.</em></h2>
-        <p>Seven days a week, 11 am to 10 pm. Look for the lit-up Tutejas sign near the Gurudwara.</p>
+  <!-- Open late -->
+  <section class="late" aria-label="Opening hours">
+    <div class="wrap">
+      <div class="panel reveal">
+        <div class="pic"><img src="https://cdn.jsdelivr.net/gh/pro-business-hub/website@29408cd57855fb26ca4350cac4a2786b8d8231dc/tutejas/images/facade-night.jpg" alt="Tutejas storefront lit up at night" loading="lazy"></div>
+        <div class="txt">
+          <div class="eyebrow">Open late, every day</div>
+          <h2>Shop after work.<br>We're open till <em>10 pm.</em></h2>
+          <p>Seven days a week. Look for the lit-up Tutejas sign near the Gurudwara in Mohaddipur.</p>
+          <div class="hours">
+            <span><small>Mon – Sun</small>11:00 am – 10:00 pm</span>
+            <span><small>Festivals</small>Call to confirm</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Visit -->
-  <section id="visit">
+  <section id="visit" style="padding-top:0">
     <div class="wrap">
-      <div class="sec-head">
+      <div class="sec-head reveal">
         <div>
           <div class="eyebrow">Visit the store</div>
-          <h2 class="serif">Come say hello</h2>
+          <h2>Come say <em>hello</em></h2>
         </div>
         <p>Find us in Shri Ram Nagar Colony, right near the Gurudwara in Mohaddipur.</p>
       </div>
       <div class="visit">
-        <div class="info">
+        <div class="info reveal">
           <div class="row">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>
+            <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
             <div>
               <h4>Address</h4>
               <address style="font-style:normal">20-A, Shri Ram Nagar Colony, near Gurudwara,<br>Mohaddipur, Gorakhpur, Uttar Pradesh 273008</address>
             </div>
           </div>
           <div class="row">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
             <div>
               <h4>Hours</h4>
               <div>Open every day · 11:00 am – 10:00 pm</div>
@@ -509,7 +585,7 @@
             </div>
           </div>
           <div class="row">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
+            <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span>
             <div>
               <h4>Phone</h4>
               <a href="tel:+919999952387">+91 99999 52387</a>
@@ -520,7 +596,7 @@
             <a class="btn btn-ghost" href="tel:+919999952387">Call now</a>
           </div>
         </div>
-        <div class="map">
+        <div class="map reveal d1">
           <iframe title="Map showing Tutejas store location in Gorakhpur" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
             src="https://maps.google.com/maps?q=26.7490963,83.4029428&z=17&output=embed"></iframe>
         </div>
@@ -531,7 +607,10 @@
 
 <footer class="site">
   <div class="wrap">
-    <div><strong class="serif" style="color:var(--ink);font-size:18px">Tutejas</strong> · Clothing &amp; Accessories, Gorakhpur</div>
+    <div>
+      <img src="https://cdn.jsdelivr.net/gh/pro-business-hub/website@29408cd57855fb26ca4350cac4a2786b8d8231dc/tutejas/images/logo.png" alt="Tutejas" width="802" height="160" loading="lazy">
+      Clothing &amp; Accessories · Mohaddipur, Gorakhpur
+    </div>
     <div>© <span id="yr">2026</span> Tutejas. All rights reserved.</div>
   </div>
 </footer>
@@ -541,18 +620,33 @@
 </a>
 
 <script>
-  // Live open/closed badge, computed in India Standard Time (store hours 11:00–22:00 daily)
   (function () {
-    var el = document.getElementById('status');
+    // Live open/closed status, computed in India Standard Time (store hours 11:00–22:00 daily)
     try {
-      var parts = new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit', hour12: false }).formatToParts(new Date());
+      var parts = new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Kolkata', hour: '2-digit', hour12: false }).formatToParts(new Date());
       var h = +parts.find(function (p) { return p.type === 'hour'; }).value;
       var open = h >= 11 && h < 22;
+      var el = document.getElementById('status');
       el.textContent = open ? 'Open now · closes 10 pm' : 'Closed now · opens 11 am';
       el.className = 'status ' + (open ? 'open' : 'closed');
       el.hidden = false;
+      document.getElementById('chipStatus').textContent = open ? 'Open now · till 10 pm' : 'Closed now · opens 11 am';
+      document.getElementById('dot').className = 'dot' + (open ? '' : ' closed');
     } catch (e) {}
     document.getElementById('yr').textContent = new Date().getFullYear();
+
+    // Header shadow once the page scrolls
+    var nav = document.querySelector('header.nav');
+    var onScroll = function () { nav.classList.toggle('scrolled', window.scrollY > 8); };
+    window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+    // Fade sections in as they enter the viewport
+    var items = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) { items.forEach(function (n) { n.classList.add('in'); }); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+    items.forEach(function (n) { io.observe(n); });
   })();
 </script>
 </body>
